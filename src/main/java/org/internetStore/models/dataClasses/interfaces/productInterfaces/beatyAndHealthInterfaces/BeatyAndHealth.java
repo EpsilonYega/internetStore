@@ -1,6 +1,6 @@
 package org.internetStore.models.dataClasses.interfaces.productInterfaces.beatyAndHealthInterfaces;
 
-import org.internetStore.models.dataClasses.interfaces.productInterfaces.Product;
+import org.internetStore.models.dataClasses.interfaces.productInterfaces.IProduct;
 
-public interface BeatyAndHealth extends Product {
+public interface BeatyAndHealth extends IProduct {
 }

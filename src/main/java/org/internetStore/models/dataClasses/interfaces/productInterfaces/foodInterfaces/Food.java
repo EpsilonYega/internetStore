@@ -1,6 +1,6 @@
 package org.internetStore.models.dataClasses.interfaces.productInterfaces.foodInterfaces;
 
-import org.internetStore.models.dataClasses.interfaces.productInterfaces.Product;
+import org.internetStore.models.dataClasses.interfaces.productInterfaces.IProduct;
 
-public interface Food extends Product {
+public interface Food extends IProduct {
 }

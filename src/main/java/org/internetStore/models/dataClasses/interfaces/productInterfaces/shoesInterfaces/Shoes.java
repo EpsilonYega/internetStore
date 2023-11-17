@@ -1,7 +1,7 @@
 package org.internetStore.models.dataClasses.interfaces.productInterfaces.shoesInterfaces;
 
-import org.internetStore.models.dataClasses.interfaces.productInterfaces.Product;
+import org.internetStore.models.dataClasses.interfaces.productInterfaces.IProduct;
 
-public interface Shoes extends Product {
+public interface Shoes extends IProduct {
 
 }
