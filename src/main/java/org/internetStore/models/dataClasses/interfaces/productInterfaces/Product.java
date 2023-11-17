@@ -1,5 +1,7 @@
-package org.internetStore.models.dataClasses;
+package org.internetStore.models.dataClasses.interfaces.productInterfaces;
 
+
+import org.internetStore.models.dataClasses.interfaces.Warehouse;
 
 import java.util.List;
 
@@ -8,4 +10,5 @@ public interface Product {
     public String getProductName();
     public List<Warehouse> getProductPlacementList();
     public int getProductCount();
+    public String getCompanyName();
 }

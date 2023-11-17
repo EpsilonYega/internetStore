@@ -1,4 +1,6 @@
-package org.internetStore.models.dataClasses;
+package org.internetStore.models.dataClasses.interfaces;
+
+import org.internetStore.models.dataClasses.interfaces.productInterfaces.Product;
 
 import java.util.List;
 
