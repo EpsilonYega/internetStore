@@ -1,13 +1,28 @@
 package org.internetStore.models.entities.warehouseEntities;
 
-import org.internetStore.models.entities.productEntities.IProduct;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.internetStore.models.entities.productEntities.Product;
 
 import java.util.List;
 
-public interface Warehouse {
-    public String getWarehouseAddress();
-    public List<IProduct> getAvailableProductsList();
-    public List<IProduct> newProduct(IProduct p);
-    public List<IProduct> dropProduct(int id);
-    public List<IProduct> dropProduct(IProduct p);
+@Data
+@AllArgsConstructor
+public class Warehouse implements IWarehouse{
+    private String warehouseAddress;
+    private List<Product> availableProductsList;
+    @Override
+    public void newProduct(Product p) {
+        availableProductsList.add(p);
+    }
+
+    @Override
+    public void dropProduct(int id) {
+        availableProductsList.remove(id);
+    }
+
+    @Override
+    public void dropProduct(Product p) {
+        availableProductsList.remove(p);
+    }
 }
