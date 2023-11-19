@@ -7,7 +7,7 @@ import java.util.List;
 public interface IProduct {
     public int getProductId();
     public String getProductName();
-    public List<Warehouse> getProductPlacementList();
+//    public List<Warehouse> getProductPlacementList();
     public String getCategory();
 
     public List<String> getCharacteristicsList();
