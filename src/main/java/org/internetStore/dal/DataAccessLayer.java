@@ -3,6 +3,7 @@ package org.internetStore.dal;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import lombok.Getter;
 import org.hibernate.Session;
 import org.internetStore.models.entities.HibernateUtil;
 import org.internetStore.models.entities.productEntities.Product;
@@ -11,21 +12,13 @@ import java.util.List;
 
 
 
+@Getter
 public class DataAccessLayer {
     private Session session;
 
-    public Session getSession() {
-        return session;
-    }
-
-    public DataAccessLayer() {
-        session = HibernateUtil.getSessionFactory().openSession();
-
-
-    }
-
     public void newProductToDatabase(){
      http://localhost:8080/main/products/new
+     session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Product product = new Product();
         product.setProductname("qweaedgsdfgjfmh,vg");
@@ -34,11 +27,13 @@ public class DataAccessLayer {
 
         session.persist(product);
         session.getTransaction().commit();
+        session.close();
+
 
     }
     public List<Product> getProductsFromDatabase(){
         http://localhost:8080/main/products
-
+        session = HibernateUtil.getSessionFactory().openSession();
 
         session.getTransaction().begin();
 
@@ -57,6 +52,7 @@ public class DataAccessLayer {
 //        }
 
         session.getTransaction().commit();
+        session.close();
         return products;
     }
     public void copyToAnotherTable(){
@@ -78,25 +74,21 @@ public class DataAccessLayer {
     }
     public Product getProductFromDatabaseByID(int id){
 //       http://localhost:8080/main/products/2
-
+        session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 
-        try{
-            Product product = session.get(Product.class, id);
+        Product product = session.get(Product.class, id);
+        session.persist(product);
+        session.getTransaction().commit();
+        session.close();
 
-            session.persist(product);
-            session.getTransaction().commit();
-            return product;
-        }
-        catch (Exception exception){
-            return null;
-        }
 
+        return product;
     }
 
     public void updateProductFromDatabaseByID(int id){
         http://localhost:8080/main/products/update/2
-
+        session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 
         Product product = session.get(Product.class, id);
@@ -104,18 +96,18 @@ public class DataAccessLayer {
 
         session.update(product);
         session.getTransaction().commit();
-
+        session.close();
     }
     public void dropProductFromDatabaseByID(int id){
          http://localhost:8080/main/products/drop/1
-
+        session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 
         Product product = session.get(Product.class, id);
         session.delete(product);
 
         session.getTransaction().commit();
-
+        session.close();
 
     }
 
