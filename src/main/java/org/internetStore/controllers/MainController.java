@@ -5,10 +5,7 @@ import org.internetStore.models.entities.productEntities.Product;
 import org.internetStore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,28 +29,31 @@ public class MainController {
     public ResponseEntity<Product> getProduct(@PathVariable int id) {
         return ResponseEntity.ok(productService.getProductByID(id));
     }
-    @GetMapping("/products/new")
-    public void newProduct() {
-        productService.newProduct();
-    }
 //    @GetMapping("/products/new")
-//    public ResponseEntity<Product> newProduct() {
-//        return ResponseEntity.ok(productService.newProduct());
+//    public void newProduct() {
+//        productService.newProduct();
 //    }
-    @GetMapping("/products/update/{id}")
-    public void updateProduct(@PathVariable int id) {
-        productService.updateProduct(id);
+    @PostMapping("/products/new")
+    public ResponseEntity newProduct(@RequestBody Product product) {
+        productService.newProduct(product);
+        return ResponseEntity.ok().build();
     }
-//    @GetMapping("/products/update")
-//    public ResponseEntity<Product> updateProduct(@PathVariable int id) {
-//        return ResponseEntity.ok(productService.updateProduct(id));
+//    @GetMapping("/products/update/{id}")
+//    public void updateProduct(@PathVariable int id) {
+//        productService.updateProduct(id);
 //    }
-    @GetMapping("/products/drop/{id}")
-    public void dropProduct(@PathVariable int id) {
+    @PostMapping("/products/update")
+    public ResponseEntity updateProduct(@RequestBody int id, @RequestBody Product product) {
+        productService.updateProduct(id, product);
+        return ResponseEntity.ok().build();
+    }
+//    @GetMapping("/products/drop/{id}")
+//    public void dropProduct(@PathVariable int id) {
+//        productService.dropProduct(id);
+//    }
+    @PostMapping("/products/drop")
+    public ResponseEntity dropProduct(@RequestBody int id) {
         productService.dropProduct(id);
+        return ResponseEntity.ok().build();
     }
-//    @GetMapping("/products/drop")
-//    public ResponseEntity<Product> dropProduct(@PathVariable int id) {
-//        return ResponseEntity.ok(productService.dropProduct(id));
-//    }
 }

@@ -10,5 +10,5 @@ public interface IProduct {
 //    public List<Warehouse> getProductPlacementList();
     public String getCategory();
 
-    public String getCharacteristicsList();
+    public List<String> getCharacteristicsList();
 }

@@ -17,11 +17,11 @@ public class ProductService {
     public Product getProductByID(int id) {
         return dataAccessLayer.getProductFromDatabaseByID(id);
     }
-    public void newProduct(){
-        dataAccessLayer.newProductToDatabase();
+    public void newProduct(Product product){
+        dataAccessLayer.newProductToDatabase(product);
     }
-    public void updateProduct(int id) {
-        dataAccessLayer.updateProductFromDatabaseByID(id);
+    public void updateProduct(int id, Product product) {
+        dataAccessLayer.updateProductFromDatabaseByID(id, product);
     }
     public void dropProduct(int id) {
         dataAccessLayer.dropProductFromDatabaseByID(id);

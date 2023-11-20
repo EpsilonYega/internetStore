@@ -15,12 +15,13 @@ public class Product implements IProduct {
     private int productid;
     private String productname;
     private String category;
-    private String characteristicsList;
+    @ElementCollection
+    private List<String> characteristicsList;
     private static int counter = 0;
 
     public Product(){}
 
-    public Product(String productName, String category, String characteristicsList) {
+    public Product(String productName, String category, List<String> characteristicsList) {
         this.productid = counter;
         this.productname = productName;
 //        this.productPlacementList = productPlacementList;
