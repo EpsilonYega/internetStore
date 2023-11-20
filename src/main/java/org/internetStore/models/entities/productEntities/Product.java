@@ -1,23 +1,28 @@
 package org.internetStore.models.entities.productEntities;
 
+import jakarta.persistence.*;
 import lombok.Data;
-import org.internetStore.models.entities.warehouseEntities.Warehouse;
 
 import java.util.List;
+import java.util.Objects;
 
+@Entity
 @Data
+@Table(name = "product", schema = "public", catalog = "internet_store_db")
 public class Product implements IProduct {
-    private static int counter = 0;
-    private int productId;
-    private String productName;
-//    private List<Warehouse> productPlacementList;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private int productid;
+    private String productname;
     private String category;
-    private List<String> characteristicsList;
+    private String characteristicsList;
+    private static int counter = 0;
+
     public Product(){}
 
-    public Product(String productName, String category, List<String> characteristicsList) {
-        this.productId = counter;
-        this.productName = productName;
+    public Product(String productName, String category, String characteristicsList) {
+        this.productid = counter;
+        this.productname = productName;
 //        this.productPlacementList = productPlacementList;
         this.category = category;
         this.characteristicsList = characteristicsList;

@@ -2,7 +2,6 @@ package org.internetStore.service;
 
 import org.internetStore.dal.DataAccessLayer;
 import org.internetStore.models.entities.productEntities.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
