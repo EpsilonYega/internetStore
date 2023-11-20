@@ -21,9 +21,9 @@ public class DataAccessLayer {
      session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Product product = new Product();
-        product.setProductname("qweaedgsdfgjfmh,vg");
-        product.setCategory("svin");
-        product.setCharacteristicsList("qwe");
+        product.setProductname("Galaxy S20");
+        product.setCategory("MobilePhone");
+        product.setCharacteristicsList("company_name: SvinsElectronics.com");
 
         session.persist(product);
         session.getTransaction().commit();
@@ -92,7 +92,7 @@ public class DataAccessLayer {
         session.getTransaction().begin();
 
         Product product = session.get(Product.class, id);
-        product.setProductname("name");
+        product.setProductname("Galaxy S21");
 
         session.update(product);
         session.getTransaction().commit();
