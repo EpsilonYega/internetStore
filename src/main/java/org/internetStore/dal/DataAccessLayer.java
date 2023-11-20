@@ -61,7 +61,7 @@ public class DataAccessLayer {
         session.getTransaction().commit();
         return products;
     }
-    public void sunutiHuiVDruguuTablicu(){
+    public void copyToAnotherTable(){
 //        Session session = HibernateUtil.getSessionFactory().openSession();
 //
 //        session.getTransaction().begin();
@@ -79,8 +79,7 @@ public class DataAccessLayer {
 //        HibernateUtil.close();
     }
     public Product getProductFromDatabaseByID(int id){
-//        //Савелий Палыч, достаньте продукт из таблички "Продукт" по id и поместите его в этот продукт
-//        //Чтобы запустить нажми зеленую кнопочку, дождись пока все пенисы появятся в консоли и введи в поисковик урл: http://localhost:8080/main/products/1
+//       http://localhost:8080/main/products/1
 
         session.getTransaction().begin();
 
@@ -93,32 +92,27 @@ public class DataAccessLayer {
     }
 
     public void updateProductFromDatabaseByID(int id){
-        //Измени пакость на новую пакость, тоже пока вручную
-        //Чтобы запустить нажми зеленую кнопочку, дождись пока все пенисы появятся в консоли и введи в поисковик урл: http://localhost:8080/main/products/update/1
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//
-//        session.getTransaction().begin();
-//
-//        Long productId = 1L;
-//        Product product = session.get(Product.class, productId);
-//        product.setProductname("name");
-//
-//        session.update(product);
-//        session.getTransaction().commit();
+        http://localhost:8080/main/products/update/1
+
+        session.getTransaction().begin();
+
+        Product product = session.get(Product.class, id);
+        product.setProductname("name");
+
+        session.update(product);
+        session.getTransaction().commit();
 
     }
     public void dropProductFromDatabaseByID(int id){
-        //УДАЛИ ПАКОСТЬ, УДАЛИ ПАКОСТЬ, УДАЛИИИИИИИИИИИИИИИИ ПААААААААААКООООООООООООООООООСТЬ
-        //Чтобы запустить нажми зеленую кнопочку, дождись пока все пенисы появятся в консоли и введи в поисковик урл: http://localhost:8080/main/products/drop/1
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//
-//        session.getTransaction().begin();
-//
-//        long productId = 1L;
-//        Product product = session.get(Product.class, productId);
-//        session.delete(product);
-//
-//        session.getTransaction().commit();
+         http://localhost:8080/main/products/drop/1
+
+        session.getTransaction().begin();
+
+        Product product = session.get(Product.class, id);
+        session.delete(product);
+
+        session.getTransaction().commit();
+
 
     }
 
