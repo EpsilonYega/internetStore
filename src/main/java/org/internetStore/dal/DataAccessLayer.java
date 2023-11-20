@@ -58,6 +58,7 @@ public class DataAccessLayer {
 //
 //        }
 
+        session.getTransaction().commit();
         return products;
     }
     public void sunutiHuiVDruguuTablicu(){
@@ -83,11 +84,11 @@ public class DataAccessLayer {
 
         session.getTransaction().begin();
 
-        Long productId = 1L;
-        Product product = session.get(Product.class, productId);
+
+        Product product = session.get(Product.class, id);
 
         session.persist(product);
-
+        session.getTransaction().commit();
         return product;
     }
 
