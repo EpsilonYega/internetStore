@@ -25,8 +25,7 @@ public class DataAccessLayer {
     }
 
     public void newProductToDatabase(){
-        //Я пока не придумал ничего, пока тут нет моих пакостей можешь создать продукт вручную и кинуть в БД
-        //Чтобы запустить нажми зеленую кнопочку, дождись пока все пенисы появятся в консоли и введи в поисковик урл: http://localhost:8080/main/products/new
+     http://localhost:8080/main/products/new
         session.getTransaction().begin();
         Product product = new Product();
         product.setProductname("qweaedgsdfgjfmh,vg");
@@ -38,8 +37,7 @@ public class DataAccessLayer {
 
     }
     public List<Product> getProductsFromDatabase(){
-        //Савелий Палыч, достаньте все продукты из таблички "Продукт" и поместите их в этот список
-        //Чтобы запустить нажми зеленую кнопочку, дождись пока все пенисы появятся в консоли и введи в поисковик урл: http://localhost:8080/main/products
+        http://localhost:8080/main/products
 
 
         session.getTransaction().begin();
@@ -50,7 +48,7 @@ public class DataAccessLayer {
         query.select(root);
 
         List<Product> products = session.createQuery(query).getResultList();
-        session.persist(products);
+
 //        for (Product product : products) {
 //            System.out.println(product.getCategory());
 //            System.out.println(product.getProductname());
@@ -79,20 +77,25 @@ public class DataAccessLayer {
 //        HibernateUtil.close();
     }
     public Product getProductFromDatabaseByID(int id){
-//       http://localhost:8080/main/products/1
+//       http://localhost:8080/main/products/2
 
         session.getTransaction().begin();
 
+        try{
+            Product product = session.get(Product.class, id);
 
-        Product product = session.get(Product.class, id);
+            session.persist(product);
+            session.getTransaction().commit();
+            return product;
+        }
+        catch (Exception exception){
+            return null;
+        }
 
-        session.persist(product);
-        session.getTransaction().commit();
-        return product;
     }
 
     public void updateProductFromDatabaseByID(int id){
-        http://localhost:8080/main/products/update/1
+        http://localhost:8080/main/products/update/2
 
         session.getTransaction().begin();
 
