@@ -17,29 +17,28 @@ import java.util.List;
 public class DataAccessLayer {
     private Session session;
 
-//    public void newProductToDatabase(){
-//     http://localhost:8080/main/products/new
-//        session = HibernateUtil.getSessionFactory().openSession();
-//        session.getTransaction().begin();
-//        Product product = new Product();
-//        List<String> characteristicsList = new ArrayList<>();
-//        characteristicsList.add("company_name: SvinsElectronics.com");
-//        product.setProductname("Galaxy S20");
-//        product.setCategory("MobilePhone");
-//        product.setCharacteristicsList(characteristicsList);
-//
-//        session.persist(product);
-//        session.getTransaction().commit();
-//        session.close();
-//    }
-public void newProductToDatabase(Product product){
-    //http://localhost:8080/main/products/new
-//    session = HibernateUtil.getSessionFactory().openSession();
-//    session.getTransaction().begin();
-//    session.persist(product);
-//    session.getTransaction().commit();
-//    session.close();
-}
+    public void newProductToDatabase(Product product){
+     http://localhost:8080/main/products/new
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        List<String> characteristicsList = new ArrayList<>();
+        characteristicsList.add("company_name: SvinsElectronics.com");
+        product.setProductname("Galaxy S20");
+        product.setCategory("MobilePhone");
+        product.setCharacteristicsList(characteristicsList);
+
+        session.persist(product);
+        session.getTransaction().commit();
+        session.close();
+    }
+//public void newProductToDatabase(Product product){
+//    //http://localhost:8080/main/products/new
+////    session = HibernateUtil.getSessionFactory().openSession();
+////    session.getTransaction().begin();
+////    session.persist(product);
+////    session.getTransaction().commit();
+////    session.close();
+//}
     public List<Product> getProductsFromDatabase(){
         http://localhost:8080/main/products
 //        session = HibernateUtil.getSessionFactory().openSession();

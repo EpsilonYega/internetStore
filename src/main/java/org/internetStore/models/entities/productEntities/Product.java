@@ -13,9 +13,13 @@ public class Product implements IProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int productid;
+    @Column(name = "productname")
     private String productname;
+    @Column(name = "category")
     private String category;
     @ElementCollection
+    @CollectionTable(name="Product_Characteristics", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "characteristicsList")
     private List<String> characteristicsList;
     private static int counter = 0;
 

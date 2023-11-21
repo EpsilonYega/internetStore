@@ -10,7 +10,8 @@ public class HibernateUtil {
 
     private static SessionFactory buildSessionFactory() {
         try{
-            return new Configuration().configure(new File("C:\\Users\\Burbon\\IdeaProjects\\internetStore\\src\\main\\resources\\hibernate.cfg.xml")).buildSessionFactory();
+//            return new Configuration().configure(new File("C:\\Users\\Burbon\\IdeaProjects\\internetStore\\src\\main\\resources\\hibernate.cfg.xml")).buildSessionFactory();
+            return new Configuration().configure(new File("D:\\IdeaProjects\\internetStore\\src\\main\\resources\\hibernate.cfg.xml")).buildSessionFactory();
 
         }
         catch (Throwable ex){
