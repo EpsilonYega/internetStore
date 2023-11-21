@@ -21,10 +21,9 @@ public class DataAccessLayer {
      http://localhost:8080/main/products/new
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        List<String> characteristicsList = new ArrayList<>();
-        characteristicsList.add("company_name: SvinsElectronics.com");
-        product.setProductname("Galaxy S20");
-        product.setCategory("MobilePhone");
+        List<String> characteristicsList = product.getCharacteristicsList();
+        product.setProductname(product.getProductname());
+        product.setCategory(product.getCategory());
         product.setCharacteristicsList(characteristicsList);
 
         session.persist(product);
