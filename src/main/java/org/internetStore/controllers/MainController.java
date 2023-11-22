@@ -42,8 +42,8 @@ public class MainController {
 //    public void updateProduct(@PathVariable int id) {
 //        productService.updateProduct(id);
 //    }
-    @PostMapping("/products/update")
-    public ResponseEntity updateProduct(@RequestBody int id, @RequestBody Product product) {
+    @PatchMapping("/products/update/{id}")
+    public ResponseEntity updateProduct(@PathVariable int id, @RequestBody Product product) {
         productService.updateProduct(id, product);
         return ResponseEntity.ok().build();
     }
@@ -51,8 +51,8 @@ public class MainController {
 //    public void dropProduct(@PathVariable int id) {
 //        productService.dropProduct(id);
 //    }
-    @PostMapping("/products/drop")
-    public ResponseEntity dropProduct(@RequestBody int id) {
+    @DeleteMapping("/products/drop/{id}")
+    public ResponseEntity dropProduct(@PathVariable int id) {
         productService.dropProduct(id);
         return ResponseEntity.ok().build();
     }

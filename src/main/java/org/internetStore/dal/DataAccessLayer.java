@@ -65,25 +65,25 @@ public class DataAccessLayer {
 //    }
 public void updateProductFromDatabaseByID(int id, Product newProduct){
     //http://localhost:8080/main/products/update/2
-//    session = HibernateUtil.getSessionFactory().openSession();
-//    session.getTransaction().begin();
-//    Product product = session.get(Product.class, id);
-//    product.setProductname(newProduct.getProductname());
-//    product.setCategory(newProduct.getCategory());
-//    product.setCharacteristicsList(newProduct.getCharacteristicsList());
-//    session.update(product);
-//    session.getTransaction().commit();
-//    session.close();
+    session = HibernateUtil.getSessionFactory().openSession();
+    session.getTransaction().begin();
+    Product product = session.get(Product.class, id);
+    product.setProductname(newProduct.getProductname());
+    product.setCategory(newProduct.getCategory());
+    product.setCharacteristicsList(newProduct.getCharacteristicsList());
+    session.update(product);
+    session.getTransaction().commit();
+    session.close();
 }
     public void dropProductFromDatabaseByID(int id){
          //http://localhost:8080/main/products/drop/1
-//        session = HibernateUtil.getSessionFactory().openSession();
-//        session.getTransaction().begin();
-//        Product product = session.get(Product.class, id);
-//        session.delete(product);
-//
-//        session.getTransaction().commit();
-//        session.close();
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Product product = session.get(Product.class, id);
+        session.delete(product);
+
+        session.getTransaction().commit();
+        session.close();
 
     }
 }
