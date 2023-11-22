@@ -38,39 +38,18 @@ public class DataAccessLayer {
         CriteriaQuery<Product> query = builder.createQuery(Product.class);
         Root<Product> root = query.from(Product.class);
         query.select(root);
-        List<Product> products = session.createQuery(query).getResultList();
-        session.getTransaction().commit();
-        session.close();
-        return products;
-//        return new ArrayList<Product>();
-    }
-    public void copyToAnotherTable(){
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//
-//        session.getTransaction().begin();
-//
-//        Long productId = 1L;
-//
-//        Product product = session.get(Product.class, productId);
-//
-//        Product1 product1 = new Product1();
-//        product1.setProductName(product.getProductName());
-//        product1.setCategory(product.getCategory());
-//        session.persist(product1);
-//        session.getTransaction().commit();
-//        session.close();
-//        HibernateUtil.close();
+
+        List<Product> resultList = session.createQuery(query).getResultList();
+
+        return resultList;
     }
     public Product getProductFromDatabaseByID(int id){
 //       http://localhost:8080/main/products/2
-//        session = HibernateUtil.getSessionFactory().openSession();
-//        session.getTransaction().begin();
-//        Product product = session.get(Product.class, id);
-//        session.persist(product);
-//        session.getTransaction().commit();
-//        session.close();
-//        return product;
-        return new Product();
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Product product = session.get(Product.class, id);
+        return product;
+
     }
 
 //    public void updateProductFromDatabaseByID(int id){
