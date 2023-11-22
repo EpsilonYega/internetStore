@@ -30,27 +30,19 @@ public class DataAccessLayer {
         session.getTransaction().commit();
         session.close();
     }
-//public void newProductToDatabase(Product product){
-//    //http://localhost:8080/main/products/new
-////    session = HibernateUtil.getSessionFactory().openSession();
-////    session.getTransaction().begin();
-////    session.persist(product);
-////    session.getTransaction().commit();
-////    session.close();
-//}
     public List<Product> getProductsFromDatabase(){
         http://localhost:8080/main/products
-//        session = HibernateUtil.getSessionFactory().openSession();
-//        session.getTransaction().begin();
-//        CriteriaBuilder builder = session.getCriteriaBuilder();
-//        CriteriaQuery<Product> query = builder.createQuery(Product.class);
-//        Root<Product> root = query.from(Product.class);
-//        query.select(root);
-//        List<Product> products = session.createQuery(query).getResultList();
-//        session.getTransaction().commit();
-//        session.close();
-//        return products;
-        return new ArrayList<Product>();
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> query = builder.createQuery(Product.class);
+        Root<Product> root = query.from(Product.class);
+        query.select(root);
+        List<Product> products = session.createQuery(query).getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return products;
+//        return new ArrayList<Product>();
     }
     public void copyToAnotherTable(){
 //        Session session = HibernateUtil.getSessionFactory().openSession();

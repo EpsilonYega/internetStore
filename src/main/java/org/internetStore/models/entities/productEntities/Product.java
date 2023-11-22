@@ -18,6 +18,7 @@ public class Product implements IProduct {
     @Column(name = "category")
     private String category;
     @ElementCollection
+    @CollectionTable(name="Product_Characteristics", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "characteristicsList")
     private List<String> characteristicsList;
     private static int counter = 0;
