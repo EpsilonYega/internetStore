@@ -2,7 +2,9 @@ package org.internetStore.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.internetStore.models.entities.productEntities.Product;
+import org.internetStore.models.entities.warehouseEntities.Warehouse;
 import org.internetStore.service.ProductService;
+import org.internetStore.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import java.util.List;
 public class MainController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private WarehouseService warehouseService;
     @GetMapping
     public ResponseEntity<String> getWorkedPage() {
         String messape = "Я тебе в душу срал, нахуй ты сюда зашел";
@@ -29,31 +33,42 @@ public class MainController {
     public ResponseEntity<Product> getProduct(@PathVariable int id) {
         return ResponseEntity.ok(productService.getProductByID(id));
     }
-//    @GetMapping("/products/new")
-//    public void newProduct() {
-//        productService.newProduct();
-//    }
     @PostMapping("/products/new")
     public ResponseEntity newProduct(@RequestBody Product product) {
         productService.newProduct(product);
         return ResponseEntity.ok().build();
     }
-//    @GetMapping("/products/update/{id}")
-//    public void updateProduct(@PathVariable int id) {
-//        productService.updateProduct(id);
-//    }
     @PatchMapping("/products/update/{id}")
     public ResponseEntity updateProduct(@PathVariable int id, @RequestBody Product product) {
         productService.updateProduct(id, product);
         return ResponseEntity.ok().build();
     }
-//    @GetMapping("/products/drop/{id}")
-//    public void dropProduct(@PathVariable int id) {
-//        productService.dropProduct(id);
-//    }
     @DeleteMapping("/products/drop/{id}")
     public ResponseEntity dropProduct(@PathVariable int id) {
         productService.dropProduct(id);
+        return ResponseEntity.ok().build();
+    }
+    @GetMapping("/warehouses")
+    public ResponseEntity<List<Warehouse>> getWarehouseList() {
+        return ResponseEntity.ok(warehouseService.getWarehouseList());
+    }
+    @GetMapping("/warehouses/{id}")
+    public ResponseEntity<Warehouse> getWarehouse(@PathVariable int id) {
+        return ResponseEntity.ok(warehouseService.getWarehouseByID(id));
+    }
+    @PostMapping("/warehouses/new")
+    public ResponseEntity newWarehouse(@RequestBody Warehouse warehouse) {
+        warehouseService.newWarehouse(warehouse);
+        return ResponseEntity.ok().build();
+    }
+    @PatchMapping("/warehouses/update/{id}")
+    public ResponseEntity updateWarehouse(@PathVariable int id, @RequestBody Warehouse warehouse) {
+        warehouseService.updateWarehouse(id, warehouse);
+        return ResponseEntity.ok().build();
+    }
+    @DeleteMapping("/warehouses/drop/{id}")
+    public ResponseEntity dropWarehouse(@PathVariable int id) {
+        warehouseService.dropWarehouse(id);
         return ResponseEntity.ok().build();
     }
 }

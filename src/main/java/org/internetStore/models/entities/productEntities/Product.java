@@ -1,10 +1,12 @@
 package org.internetStore.models.entities.productEntities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.internetStore.models.entities.warehouseEntities.Warehouse;
 
+import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -21,16 +23,22 @@ public class Product implements IProduct {
     @CollectionTable(name="Product_Characteristics", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "characteristicsList")
     private List<String> characteristicsList;
+    @JsonIgnore
+    @ManyToMany
+    private List<Warehouse> warehouseList;
+    @ElementCollection
+    private List<Integer> warehouseIdList;
     private static int counter = 0;
 
     public Product(){}
 
-    public Product(String productName, String category, List<String> characteristicsList) {
+    public Product(String productName, String category, List<String> characteristicsList, List<Warehouse> warehouseList) {
         this.productid = counter;
         this.productname = productName;
-//        this.productPlacementList = productPlacementList;
         this.category = category;
         this.characteristicsList = characteristicsList;
+        this.warehouseList = warehouseList;
         counter++;
     }
+
 }
