@@ -23,8 +23,11 @@ public class DataAccessLayer {
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         List<Warehouse> warehouseList = new ArrayList<>();
+        List<String> warehouseNameList = new ArrayList<>();
         for (int i : product.getWarehouseIdList()) {
-            warehouseList.add(session.get(Warehouse.class, i));
+            Warehouse localWarehouse = session.get(Warehouse.class, i);
+            product.getWarehouseAddressList().add(localWarehouse.getWarehouseAddress());
+            warehouseList.add(localWarehouse);
         }
         product.setWarehouseList(warehouseList);
         session.persist(product);

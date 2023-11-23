@@ -6,6 +6,7 @@ import lombok.Data;
 import org.internetStore.models.entities.warehouseEntities.Warehouse;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,8 @@ public class Product implements IProduct {
     private List<Warehouse> warehouseList;
     @ElementCollection
     private List<Integer> warehouseIdList;
+    @ElementCollection
+    private List<String> warehouseAddressList = new ArrayList<>();
     private static int counter = 0;
 
     public Product(){}
@@ -40,5 +43,4 @@ public class Product implements IProduct {
         this.warehouseList = warehouseList;
         counter++;
     }
-
 }
