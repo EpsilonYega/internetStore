@@ -23,10 +23,13 @@ public class DataAccessLayer {
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         List<Warehouse> warehouseList = new ArrayList<>();
-        List<String> warehouseNameList = new ArrayList<>();
         for (int i : product.getWarehouseIdList()) {
             Warehouse localWarehouse = session.get(Warehouse.class, i);
-            product.getWarehouseAddressList().add(localWarehouse.getWarehouseAddress());
+            if (localWarehouse != null){
+                product.getWarehouseAddressList().add(localWarehouse.getWarehouseAddress());
+                localWarehouse.newProduct(product);
+                session.update(localWarehouse);
+            }
             warehouseList.add(localWarehouse);
         }
         product.setWarehouseList(warehouseList);
@@ -62,6 +65,7 @@ public void updateProductFromDatabaseByID(int id, Product newProduct){
     product.setProductname(newProduct.getProductname());
     product.setCategory(newProduct.getCategory());
     product.setCharacteristicsList(newProduct.getCharacteristicsList());
+    product.setWarehouseAddressList(newProduct.getWarehouseAddressList());
     session.update(product);
     session.getTransaction().commit();
     session.close();
@@ -81,6 +85,17 @@ public void updateProductFromDatabaseByID(int id, Product newProduct){
         http://localhost:8080/main/products/new
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
+        List<Product> productList = new ArrayList<>();
+        for (int i : warehouse.getProductIdList()) {
+            Product localProduct = session.get(Product.class, i);
+            if (localProduct != null) {
+                warehouse.getProductNameList().add(localProduct.getProductname());
+                localProduct.getWarehouseList().add(warehouse);
+                session.update(localProduct);
+            }
+            productList.add(localProduct);
+        }
+        warehouse.setAvailableProductsList(productList);
         session.persist(warehouse);
         session.getTransaction().commit();
         session.close();
@@ -111,6 +126,7 @@ public void updateProductFromDatabaseByID(int id, Product newProduct){
         Warehouse warehouse = session.get(Warehouse.class, id);
         warehouse.setWarehouseAddress(newWarehouse.getWarehouseAddress());
         warehouse.setAvailableProductsList(warehouse.getAvailableProductsList());
+        warehouse.setWarehouseAddress(newWarehouse.getWarehouseAddress());
         session.update(warehouse);
         session.getTransaction().commit();
         session.close();

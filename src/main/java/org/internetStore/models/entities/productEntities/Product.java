@@ -31,16 +31,13 @@ public class Product implements IProduct {
     private List<Integer> warehouseIdList;
     @ElementCollection
     private List<String> warehouseAddressList = new ArrayList<>();
-    private static int counter = 0;
 
     public Product(){}
 
     public Product(String productName, String category, List<String> characteristicsList, List<Warehouse> warehouseList) {
-        this.productid = counter;
         this.productname = productName;
         this.category = category;
         this.characteristicsList = characteristicsList;
         this.warehouseList = warehouseList;
-        counter++;
     }
 }
