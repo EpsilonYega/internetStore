@@ -6,18 +6,28 @@ import jakarta.persistence.criteria.Root;
 import lombok.Getter;
 import org.hibernate.Session;
 import org.internetStore.models.entities.HibernateUtil;
+import org.internetStore.models.entities.User;
 import org.internetStore.models.entities.productEntities.Product;
 import org.internetStore.models.entities.warehouseEntities.Warehouse;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Getter
 public class DataAccessLayer {
     private Session session;
 
+    public static Optional<User> getUserFromDatabaseByUsername(String name){
+        return null;
+    }
+    public Boolean existsByUsername(String username) {
+        return false;
+    }
+    public Boolean existsByEmail(String email) {
+        return false;
+    }
     public void newProductToDatabase(Product product){
      http://localhost:8080/main/products/new
         session = HibernateUtil.getSessionFactory().openSession();

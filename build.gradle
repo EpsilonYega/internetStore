@@ -18,6 +18,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation group: 'org.springframework', name: 'spring-context', version: '6.0.13'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.1.5'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.1.5'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.12.3'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '3.2.0'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
