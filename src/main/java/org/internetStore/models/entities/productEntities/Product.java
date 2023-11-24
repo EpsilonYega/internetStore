@@ -25,19 +25,17 @@ public class Product implements IProduct {
     @Column(name = "characteristicsList")
     private List<String> characteristicsList;
     @JsonIgnore
-    @ManyToMany
-    private List<Warehouse> warehouseList;
-    @ElementCollection
-    private List<Integer> warehouseIdList;
-    @ElementCollection
-    private List<String> warehouseAddressList = new ArrayList<>();
+    @OneToOne
+    private Warehouse warehouse;
+    private int warehouseId;
+    private String warehouseAddress = "";
 
     public Product(){}
 
-    public Product(String productName, String category, List<String> characteristicsList, List<Warehouse> warehouseList) {
+    public Product(String productName, String category, List<String> characteristicsList, Warehouse warehouse) {
         this.productname = productName;
         this.category = category;
         this.characteristicsList = characteristicsList;
-        this.warehouseList = warehouseList;
+        this.warehouse = warehouse;
     }
 }

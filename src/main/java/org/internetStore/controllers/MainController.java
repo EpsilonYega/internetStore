@@ -21,7 +21,7 @@ public class MainController {
     private WarehouseService warehouseService;
     @GetMapping
     public ResponseEntity<String> getWorkedPage() {
-        String messape = "Я тебе в душу срал, нахуй ты сюда зашел";
+        String messape = "Вы зашли в Main!";
         log.info("Вы зашли в Main!");
         return ResponseEntity.ok(messape);
     }

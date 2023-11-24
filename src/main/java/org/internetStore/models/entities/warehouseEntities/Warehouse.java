@@ -20,31 +20,8 @@ public class Warehouse implements IWarehouse{
     private int warehouseId;
     @Column(name = "warehouseAddress")
     private String warehouseAddress;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "warehouseList")
-    private List<Product> availableProductsList;
-    @ElementCollection
-    private List<Integer> productIdList;
-    @ElementCollection
-    private List<String> productNameList = new ArrayList<>();
     public Warehouse(){}
-    public Warehouse(String warehouseAddress, List<Product> availableProductsList) {
+    public Warehouse(String warehouseAddress) {
         this.warehouseAddress = warehouseAddress;
-        this.availableProductsList = availableProductsList;
-    }
-
-    @Override
-    public void newProduct(Product p) {
-        availableProductsList.add(p);
-    }
-
-    @Override
-    public void dropProduct(int id) {
-        availableProductsList.remove(id);
-    }
-
-    @Override
-    public void dropProduct(Product p) {
-        availableProductsList.remove(p);
     }
 }
