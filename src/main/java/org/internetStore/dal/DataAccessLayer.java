@@ -5,12 +5,12 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import lombok.Getter;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.internetStore.models.entities.HibernateUtil;
 import org.internetStore.models.entities.User;
 import org.internetStore.models.entities.productEntities.Product;
 import org.internetStore.models.entities.warehouseEntities.Warehouse;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,14 +19,41 @@ import java.util.Optional;
 public class DataAccessLayer {
     private Session session;
 
-    public static Optional<User> getUserFromDatabaseByUsername(String name){
-        return null;
-    }
     public Boolean existsByUsername(String username) {
         return false;
     }
     public Boolean existsByEmail(String email) {
         return false;
+    }
+    public String newUserToDatabase(User user){
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+
+        String name = user.getUsername();
+        Query query = session
+                .createQuery("FROM User where username = :username")
+                .setParameter("username", name);
+        User userFrom = (User) query.uniqueResult();
+        if (userFrom != null) {
+            return "Выберите другое имя";
+        }
+
+        String useremail = user.getEmail();
+        query = session
+                .createQuery("FROM User where email = :email")
+                .setParameter("email", useremail);
+        userFrom = (User) query.uniqueResult();
+        if (userFrom != null) {
+            return "Выберите другую почту";
+        }
+
+        session.persist(user);
+        session.getTransaction().commit();
+        session.close();
+        return "Победа)";
+    }
+    public static Optional<User> getUserFromDatabaseByUsername(String name){
+        return null;
     }
     public void newProductToDatabase(Product product){
      http://localhost:8080/main/products/new

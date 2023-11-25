@@ -6,13 +6,14 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Table(name = "user", schema = "public", catalog = "internet_store_db")
 @NoArgsConstructor
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long userId;
+    private Long userid;
     @Column
-    private String userName;
+    private String username;
     @Column
     private String email;
     @Column

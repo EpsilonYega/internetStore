@@ -5,6 +5,7 @@ import org.internetStore.dto.SigninRequest;
 import org.internetStore.dto.SignupRequest;
 import org.internetStore.models.entities.User;
 import org.internetStore.security.JwtCore;
+import org.internetStore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -20,45 +21,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/auth")
 public class SecurityController {
     @Autowired
-    public void setDataAccessLayer(DataAccessLayer dataAccessLayer) {
-        this.dataAccessLayer = dataAccessLayer;
-    }
+    private DataAccessLayer dataAccessLayer;
     @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private UserService userService;
     @Autowired
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
-    @Autowired
-    public void setJwtCore(JwtCore jwtCore) {
-        this.jwtCore = jwtCore;
-    }
-
-    DataAccessLayer dataAccessLayer = new DataAccessLayer();
     private PasswordEncoder passwordEncoder;
+    @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
     private JwtCore jwtCore;
 
     @PostMapping("/signup")
     ResponseEntity<?> signup(@RequestBody SignupRequest signupRequest) {
-        if (dataAccessLayer.existsByUsername(signupRequest.getUserName())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Выберите другое имя");
+        String serviceResult = userService.newUser(signupRequest);
+        if (Objects.equals(serviceResult, "Выберите другое имя")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(serviceResult);
         }
-        if (dataAccessLayer.existsByEmail(signupRequest.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Выберите другую почту");
+        if (Objects.equals(serviceResult, "Выберите другую почту")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(serviceResult);
         }
-
-        User user = new User();
-        user.setUserName(signupRequest.getUserName());
-        user.setEmail(signupRequest.getEmail());
-        user.setPassword(signupRequest.getPassword());
-        return ResponseEntity.ok("Победа!");
+        return ResponseEntity.ok("Победа)");
     }
     @PostMapping("/signin")
     ResponseEntity<?> signin(@RequestBody SigninRequest signinRequest) {
