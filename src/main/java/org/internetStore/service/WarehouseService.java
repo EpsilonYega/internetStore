@@ -3,13 +3,15 @@ package org.internetStore.service;
 import org.internetStore.dal.DataAccessLayer;
 import org.internetStore.models.entities.productEntities.Product;
 import org.internetStore.models.entities.warehouseEntities.Warehouse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class WarehouseService {
-    DataAccessLayer dataAccessLayer = new DataAccessLayer();
+    @Autowired
+    DataAccessLayer dataAccessLayer;
     public List<Warehouse> getWarehouseList(){
         return dataAccessLayer.getWarehousesFromDatabase();
     }

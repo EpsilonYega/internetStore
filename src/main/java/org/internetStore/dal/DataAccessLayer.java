@@ -19,12 +19,6 @@ import java.util.Optional;
 public class DataAccessLayer {
     private Session session;
 
-    public Boolean existsByUsername(String username) {
-        return false;
-    }
-    public Boolean existsByEmail(String email) {
-        return false;
-    }
     public String newUserToDatabase(User user){
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
@@ -52,8 +46,17 @@ public class DataAccessLayer {
         session.close();
         return "Победа)";
     }
-    public static Optional<User> getUserFromDatabaseByUsername(String name){
-        return null;
+    public User getUserFromDatabaseByUsername(String name){
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Query query = session
+                .createQuery("FROM User where username = :username")
+                .setParameter("username", name);
+        User userFrom = (User) query.uniqueResult();
+        if (userFrom == null) {
+            return null;
+        }
+        return userFrom;
     }
     public void newProductToDatabase(Product product){
      http://localhost:8080/main/products/new

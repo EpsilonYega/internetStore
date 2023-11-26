@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = DataAccessLayer.getUserFromDatabaseByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("Пользователь '%s не найден", username)));
+        User user = dataAccessLayer.getUserFromDatabaseByUsername(username);
         return UserDetailsImpl.build(user);
     }
 }

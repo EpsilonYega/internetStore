@@ -17,7 +17,11 @@ public class UserDetailsImpl implements UserDetails {
     private String password;
 
     public static UserDetailsImpl build(User user){
-        return new UserDetailsImpl(user.getUserid(), user.getUsername(), user.getEmail(), user.getPassword());
+        return new UserDetailsImpl(
+                user.getUserid(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword());
     }
 
     @Override
