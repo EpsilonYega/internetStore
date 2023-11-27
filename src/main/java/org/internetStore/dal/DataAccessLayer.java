@@ -28,24 +28,15 @@ public class DataAccessLayer {
         CriteriaQuery<Product> query = builder.createQuery(Product.class);
         Root<Product> root = query.from(Product.class);
 
-        Predicate namePredicate = builder.like(builder.lower(root.get("product_name")), "%" + searchQuery.toLowerCase() + "%");
-        Predicate addressPredicate = builder.like(builder.lower(root.get("address")), "%" + searchQuery.toLowerCase() + "%");
+        Predicate namePredicate = builder.like(builder.lower(root.get("productname")), "%" + searchQuery.toLowerCase() + "%");
+//        Predicate addressPredicate = builder.like(builder.lower(root.get("address")), "%" + searchQuery.toLowerCase() + "%");
         Predicate categoryPredicate = builder.like(builder.lower(root.get("category")), "%" + searchQuery.toLowerCase() + "%");
 
-        Predicate searchPredicate = builder.or(namePredicate, addressPredicate, categoryPredicate);
+        Predicate searchPredicate = builder.or(namePredicate, categoryPredicate);
 
         query.select(root).where(searchPredicate);
 
-//        List<Product> results = session.createQuery(query).getResultList();
-//
-//        if (results.isEmpty()) {
-//            System.out.print("Нет результатов по данному запросу.");
-//        }
-//
-//        return results;
-
         return session.createQuery(query).getResultList();
-
     }
 
 

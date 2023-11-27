@@ -9,7 +9,7 @@
     <property name="connection.driver_class">org.postgresql.Driver</property>
     <property name="connection.username">postgres</property>
     <property name="connection.password">postgres</property>
-    <property name="hibernate.hbm2ddl.auto">validate</property>
+    <property name="hibernate.hbm2ddl.auto">create</property>
     <mapping class="org.internetStore.models.entities.productEntities.Product"/>
     <mapping class="org.internetStore.models.entities.warehouseEntities.Warehouse"/>
     <mapping class="org.internetStore.models.entities.User"/>

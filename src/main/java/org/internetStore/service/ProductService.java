@@ -14,6 +14,9 @@ public class ProductService {
     public List<Product> getProductList(){
         return dataAccessLayer.getProductsFromDatabase();
     }
+    public List<Product> getProductListByQuery(String searchQuery){
+        return dataAccessLayer.searchProducts(searchQuery);
+    }
     public Product getProductByID(int id) {
         return dataAccessLayer.getProductFromDatabaseByID(id);
     }
