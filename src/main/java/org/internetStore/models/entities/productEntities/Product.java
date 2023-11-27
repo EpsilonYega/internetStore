@@ -24,8 +24,11 @@ public class Product implements IProduct {
     @CollectionTable(name="Product_Characteristics", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "characteristicsList")
     private List<String> characteristicsList;
+
+//    private String warehouseAddress;
     @JsonIgnore
     @OneToOne
+    @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
     private int warehouseId;
     private String warehouseAddress = "";
