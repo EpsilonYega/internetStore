@@ -1,6 +1,7 @@
 package org.internetStore.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import org.internetStore.models.entities.User;
 import org.internetStore.models.entities.productEntities.Product;
 import org.internetStore.models.entities.warehouseEntities.Warehouse;
 import org.internetStore.service.ProductService;
