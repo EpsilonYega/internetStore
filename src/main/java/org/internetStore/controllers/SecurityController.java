@@ -1,6 +1,7 @@
 package org.internetStore.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import org.internetStore.Main;
 import org.internetStore.dto.SigninRequest;
 import org.internetStore.dto.SignupRequest;
 import org.internetStore.models.entities.User;
@@ -62,11 +63,13 @@ public class SecurityController {
 //        return ResponseEntity.ok(jwt);
 
         UserDetails user = userService.loadUserByUsername(signinRequest.getUserName());
+
         if (!Objects.equals(user.getPassword(), signinRequest.getPassword())) {
             log.info("Ошибка авторизации пользователя " + signinRequest.getUserName());
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         String jwt = jwtCore.generateToken(user);
+        Main.currentUser = userService.loadUserEntityByUsername(signinRequest.getUserName());
         return ResponseEntity.ok(jwt);
     }
 }

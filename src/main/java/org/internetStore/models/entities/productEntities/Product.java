@@ -3,9 +3,15 @@ package org.internetStore.models.entities.productEntities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.internetStore.Main;
+import org.internetStore.dal.DataAccessLayer;
+import org.internetStore.models.entities.Basket;
+import org.internetStore.models.entities.User;
 import org.internetStore.models.entities.warehouseEntities.Warehouse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Nullable;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,5 +46,8 @@ public class Product implements IProduct {
         this.category = category;
         this.characteristicsList = characteristicsList;
         this.warehouse = warehouse;
+    }
+    public Basket addProductToBasket(){
+        return new Basket(Main.currentUser, this, this.getProductname());
     }
 }

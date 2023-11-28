@@ -13,6 +13,7 @@
     <mapping class="org.internetStore.models.entities.productEntities.Product"/>
     <mapping class="org.internetStore.models.entities.warehouseEntities.Warehouse"/>
     <mapping class="org.internetStore.models.entities.User"/>
+    <mapping class="org.internetStore.models.entities.Basket"/>
 
 
 

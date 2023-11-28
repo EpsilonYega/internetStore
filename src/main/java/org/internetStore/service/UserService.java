@@ -16,18 +16,10 @@ public class UserService implements UserDetailsService {
     private DataAccessLayer dataAccessLayer;
 
     public String newUser(SignupRequest signupRequest) {
-//        if (dataAccessLayer.existsByUsername(signupRequest.getUserName())) {
-//            return "Выберите другое имя";
-//        }
-//        if (dataAccessLayer.existsByEmail(signupRequest.getEmail())) {
-//            return "Выберите другую почту";
-//        }
-
         User user = new User();
         user.setUsername(signupRequest.getUserName());
         user.setEmail(signupRequest.getEmail());
         user.setPassword(signupRequest.getPassword());
-
         return dataAccessLayer.newUserToDatabase(user);
     }
 
@@ -35,5 +27,8 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = dataAccessLayer.getUserFromDatabaseByUsername(username);
         return UserDetailsImpl.build(user);
+    }
+    public User loadUserEntityByUsername(String username) throws UsernameNotFoundException {
+        return dataAccessLayer.getUserFromDatabaseByUsername(username);
     }
 }

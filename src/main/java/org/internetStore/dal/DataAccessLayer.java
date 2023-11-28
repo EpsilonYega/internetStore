@@ -9,11 +9,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.internetStore.Main;
+import org.internetStore.models.entities.Basket;
 import org.internetStore.models.entities.HibernateUtil;
 import org.internetStore.models.entities.User;
 import org.internetStore.models.entities.productEntities.Product;
 import org.internetStore.models.entities.warehouseEntities.Warehouse;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,29 +24,9 @@ import java.util.Optional;
 @Getter
 public class DataAccessLayer {
     private Session session;
-
-    public List<Product> searchProducts(String searchQuery) {
-        session = HibernateUtil.getSessionFactory().openSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Product> query = builder.createQuery(Product.class);
-        Root<Product> root = query.from(Product.class);
-
-        Predicate namePredicate = builder.like(builder.lower(root.get("productname")), "%" + searchQuery.toLowerCase() + "%");
-//        Predicate addressPredicate = builder.like(builder.lower(root.get("address")), "%" + searchQuery.toLowerCase() + "%");
-        Predicate categoryPredicate = builder.like(builder.lower(root.get("category")), "%" + searchQuery.toLowerCase() + "%");
-
-        Predicate searchPredicate = builder.or(namePredicate, categoryPredicate);
-
-        query.select(root).where(searchPredicate);
-
-        return session.createQuery(query).getResultList();
-    }
-
-
     public String newUserToDatabase(User user){
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-
         String name = user.getUsername();
         Query query = session
                 .createQuery("FROM User where username = :username")
@@ -52,7 +35,6 @@ public class DataAccessLayer {
         if (userFrom != null) {
             return "Выберите другое имя";
         }
-
         String useremail = user.getEmail();
         query = session
                 .createQuery("FROM User where email = :email")
@@ -61,7 +43,6 @@ public class DataAccessLayer {
         if (userFrom != null) {
             return "Выберите другую почту";
         }
-
         session.persist(user);
         session.getTransaction().commit();
         session.close();
@@ -79,8 +60,22 @@ public class DataAccessLayer {
         }
         return userFrom;
     }
+    public List<Basket> getBasketFromDatabase() {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Long userId = Main.currentUser.getUserid();
+        //Просто верни все баскеты в basketList, где id = userId
+        //И верни список этих баскетов вместо пустого списка
+        return new ArrayList<Basket>();
+    }
+    public void newBasketToDatabase(Product product) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        session.persist(product.addProductToBasket());
+        session.getTransaction().commit();
+        session.close();
+    }
     public void newProductToDatabase(Product product){
-     http://localhost:8080/main/products/new
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Warehouse localWarehouse = session.get(Warehouse.class, product.getWarehouseId());
@@ -90,7 +85,6 @@ public class DataAccessLayer {
         session.close();
     }
     public List<Product> getProductsFromDatabase(){
-        http://localhost:8080/main/products
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -101,16 +95,24 @@ public class DataAccessLayer {
         return resultList;
     }
     public Product getProductFromDatabaseByID(int id){
-//       http://localhost:8080/main/products/2
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Product product = session.get(Product.class, id);
         return product;
-
+    }
+    public List<Product> searchProducts(String searchQuery) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> query = builder.createQuery(Product.class);
+        Root<Product> root = query.from(Product.class);
+        Predicate namePredicate = builder.like(builder.lower(root.get("productname")), "%" + searchQuery.toLowerCase() + "%");
+        Predicate categoryPredicate = builder.like(builder.lower(root.get("category")), "%" + searchQuery.toLowerCase() + "%");
+        Predicate searchPredicate = builder.or(namePredicate, categoryPredicate);
+        query.select(root).where(searchPredicate);
+        return session.createQuery(query).getResultList();
     }
 
 public void updateProductFromDatabaseByID(int id, Product newProduct){
-    //http://localhost:8080/main/products/update/2
     session = HibernateUtil.getSessionFactory().openSession();
     session.getTransaction().begin();
     Product product = session.get(Product.class, id);
@@ -123,18 +125,15 @@ public void updateProductFromDatabaseByID(int id, Product newProduct){
     session.close();
 }
     public void dropProductFromDatabaseByID(int id){
-         //http://localhost:8080/main/products/drop/1
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Product product = session.get(Product.class, id);
         session.delete(product);
         session.getTransaction().commit();
         session.close();
-
     }
 
     public void newWarehouseToDatabase(Warehouse warehouse){
-        http://localhost:8080/main/products/new
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.persist(warehouse);
@@ -142,7 +141,6 @@ public void updateProductFromDatabaseByID(int id, Product newProduct){
         session.close();
     }
     public List<Warehouse> getWarehousesFromDatabase(){
-        http://localhost:8080/main/products
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -153,7 +151,6 @@ public void updateProductFromDatabaseByID(int id, Product newProduct){
         return resultList;
     }
     public Warehouse getWarehouseFromDatabaseByID(int id){
-//       http://localhost:8080/main/products/2
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Warehouse warehouse = session.get(Warehouse.class, id);
@@ -161,7 +158,6 @@ public void updateProductFromDatabaseByID(int id, Product newProduct){
     }
 
     public void updateWarehouseFromDatabaseByID(int id, Warehouse newWarehouse){
-        //http://localhost:8080/main/products/update/2
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Warehouse warehouse = session.get(Warehouse.class, id);
@@ -171,7 +167,6 @@ public void updateProductFromDatabaseByID(int id, Product newProduct){
         session.close();
     }
     public void dropWarehouseFromDatabaseByID(int id){
-        //http://localhost:8080/main/products/drop/1
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Warehouse warehouse = session.get(Warehouse.class, id);
