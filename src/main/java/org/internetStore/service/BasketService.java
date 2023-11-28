@@ -17,4 +17,8 @@ public class BasketService {
     public void addProductToBasket(int productId) {
         dataAccessLayer.newBasketToDatabase(dataAccessLayer.getProductFromDatabaseByID(productId));
     }
+    public void dropProductFromBasket(int productId) {
+        dataAccessLayer.dropProductFromBasketByID(productId);
+    }
+
 }

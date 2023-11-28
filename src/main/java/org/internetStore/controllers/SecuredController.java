@@ -25,6 +25,11 @@ public class SecuredController {
     public ResponseEntity<List<Basket>> getBasket() {
         return ResponseEntity.ok(basketService.getBasket());
     }
+    @GetMapping("/basket/drop/{id}")
+    public ResponseEntity dropProductFromBasket(@PathVariable("id") int id) {
+        basketService.dropProductFromBasket(id);
+        return ResponseEntity.ok().build();
+    }
     @PostMapping("/products/{id}/toBasket")
     public ResponseEntity addProductToBasket(@PathVariable("id") int id) {
         basketService.addProductToBasket(id);

@@ -75,6 +75,14 @@ public class DataAccessLayer {
         session.getTransaction().commit();
         session.close();
     }
+    public void dropProductFromBasketByID(int id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        //Запрос на удаление
+
+        session.getTransaction().commit();
+        session.close();
+    }
     public void newProductToDatabase(Product product){
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
