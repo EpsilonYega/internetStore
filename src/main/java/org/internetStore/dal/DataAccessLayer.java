@@ -64,9 +64,12 @@ public class DataAccessLayer {
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Long userId = Main.currentUser.getUserid();
-        //Просто верни все баскеты в basketList, где id = userId
-        //И верни список этих баскетов вместо пустого списка
-        return new ArrayList<Basket>();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Basket> query = builder.createQuery(Basket.class);
+        Root<Basket> root = query.from(Basket.class);
+        query.where(builder.equal(root.get("user"), userId));
+        List<Basket> result = session.createQuery(query).list();
+        return result;
     }
     public void newBasketToDatabase(Product product) {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -76,12 +79,18 @@ public class DataAccessLayer {
         session.close();
     }
     public void dropProductFromBasketByID(int id) {
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
-        //Запрос на удаление
+//        session = HibernateUtil.getSessionFactory().openSession();
+//        session.getTransaction().begin();
+//        Long userId = Main.currentUser.getUserid();
+//
+//        String hql = "DELETE FROM Basket WHERE user = :userId AND productId = :productid";
+//        Query query = session.createQuery(hql);
+//        query.setParameter("userId", userId);
+//        query.setParameter("productId", id);
+//        query.executeUpdate();
+//        session.getTransaction().commit();
+//        session.close();
 
-        session.getTransaction().commit();
-        session.close();
     }
     public void newProductToDatabase(Product product){
         session = HibernateUtil.getSessionFactory().openSession();
