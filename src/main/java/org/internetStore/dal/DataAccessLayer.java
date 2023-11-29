@@ -78,20 +78,20 @@ public class DataAccessLayer {
         session.getTransaction().commit();
         session.close();
     }
-    public void dropProductFromBasketByID(long id) {
-//        session = HibernateUtil.getSessionFactory().openSession();
-//        session.getTransaction().begin();
-//        Long userId = Main.currentUser.getUserid();
-//
-//        String hql = "DELETE FROM Basket WHERE user = :userId AND productId = :productid";
-//        Query query = session.createQuery(hql);
-//        query.setParameter("userId", userId);
-//        query.setParameter("productId", id);
-//        query.executeUpdate();
-//        session.getTransaction().commit();
-//        session.close();
-
+    public void dropProductFromBasketByID(long basketId) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        long userId = Main.currentUser.getUserid();
+        Basket basket = session.get(Basket.class, basketId);
+        if (basket.getId() == userId) {
+            session.delete(basket);
+        } else {
+            System.out.println(" ");
+        }
+        session.getTransaction().commit();
+        session.close();
     }
+
     public void newProductToDatabase(Product product){
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
