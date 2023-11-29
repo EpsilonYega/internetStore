@@ -63,12 +63,12 @@ public class DataAccessLayer {
     public List<Basket> getBasketFromDatabase() {
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Long userId = Main.currentUser.getUserid();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Basket> query = builder.createQuery(Basket.class);
-        Root<Basket> root = query.from(Basket.class);
-        query.where(builder.equal(root.get("user"), userId));
-        List<Basket> result = session.createQuery(query).list();
+        long userId = Main.currentUser.getUserid();
+        User localUser = session.get(User.class, userId);
+        List<Basket> result = session
+                .createQuery("from Basket where user = :user")
+                .setParameter("user", localUser)
+                .list();
         return result;
     }
     public void newBasketToDatabase(Product product) {
@@ -78,7 +78,7 @@ public class DataAccessLayer {
         session.getTransaction().commit();
         session.close();
     }
-    public void dropProductFromBasketByID(int id) {
+    public void dropProductFromBasketByID(long id) {
 //        session = HibernateUtil.getSessionFactory().openSession();
 //        session.getTransaction().begin();
 //        Long userId = Main.currentUser.getUserid();
@@ -111,7 +111,7 @@ public class DataAccessLayer {
         List<Product> resultList = session.createQuery(query).getResultList();
         return resultList;
     }
-    public Product getProductFromDatabaseByID(int id){
+    public Product getProductFromDatabaseByID(long id){
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Product product = session.get(Product.class, id);
@@ -129,7 +129,7 @@ public class DataAccessLayer {
         return session.createQuery(query).getResultList();
     }
 
-public void updateProductFromDatabaseByID(int id, Product newProduct){
+public void updateProductFromDatabaseByID(long id, Product newProduct){
     session = HibernateUtil.getSessionFactory().openSession();
     session.getTransaction().begin();
     Product product = session.get(Product.class, id);
@@ -141,7 +141,7 @@ public void updateProductFromDatabaseByID(int id, Product newProduct){
     session.getTransaction().commit();
     session.close();
 }
-    public void dropProductFromDatabaseByID(int id){
+    public void dropProductFromDatabaseByID(long id){
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Product product = session.get(Product.class, id);
@@ -167,14 +167,14 @@ public void updateProductFromDatabaseByID(int id, Product newProduct){
         List<Warehouse> resultList = session.createQuery(query).getResultList();
         return resultList;
     }
-    public Warehouse getWarehouseFromDatabaseByID(int id){
+    public Warehouse getWarehouseFromDatabaseByID(long id){
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Warehouse warehouse = session.get(Warehouse.class, id);
         return warehouse;
     }
 
-    public void updateWarehouseFromDatabaseByID(int id, Warehouse newWarehouse){
+    public void updateWarehouseFromDatabaseByID(long id, Warehouse newWarehouse){
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Warehouse warehouse = session.get(Warehouse.class, id);
@@ -183,7 +183,7 @@ public void updateProductFromDatabaseByID(int id, Product newProduct){
         session.getTransaction().commit();
         session.close();
     }
-    public void dropWarehouseFromDatabaseByID(int id){
+    public void dropWarehouseFromDatabaseByID(long id){
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Warehouse warehouse = session.get(Warehouse.class, id);

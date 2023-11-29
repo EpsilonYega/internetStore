@@ -21,7 +21,7 @@ import java.util.List;
 public class Product implements IProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private int productid;
+    private long productid;
     @Column(name = "productname")
     private String productname;
     @Column(name = "category")
@@ -30,6 +30,8 @@ public class Product implements IProduct {
     @CollectionTable(name="Product_Characteristics", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "characteristicsList")
     private List<String> characteristicsList;
+    @Column
+    private double price;
 
 //    private String warehouseAddress;
     @JsonIgnore
@@ -41,13 +43,14 @@ public class Product implements IProduct {
 
     public Product(){}
 
-    public Product(String productName, String category, List<String> characteristicsList, Warehouse warehouse) {
+    public Product(String productName, String category, List<String> characteristicsList, Warehouse warehouse, double price) {
         this.productname = productName;
         this.category = category;
         this.characteristicsList = characteristicsList;
         this.warehouse = warehouse;
+        this.price = price;
     }
     public Basket addProductToBasket(){
-        return new Basket(Main.currentUser, this, this.getProductname());
+        return new Basket(Main.currentUser, this, this.getProductname(), this.getPrice());
     }
 }

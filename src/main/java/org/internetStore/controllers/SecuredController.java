@@ -25,13 +25,13 @@ public class SecuredController {
     public ResponseEntity<List<Basket>> getBasket() {
         return ResponseEntity.ok(basketService.getBasket());
     }
-    @GetMapping("/basket/drop/{id}")
-    public ResponseEntity dropProductFromBasket(@PathVariable("id") int id) {
+    @DeleteMapping ("/basket/drop/{id}")
+    public ResponseEntity dropProductFromBasket(@PathVariable("id") long id) {
         basketService.dropProductFromBasket(id);
         return ResponseEntity.ok().build();
     }
     @PostMapping("/products/{id}/toBasket")
-    public ResponseEntity addProductToBasket(@PathVariable("id") int id) {
+    public ResponseEntity addProductToBasket(@PathVariable("id") long id) {
         basketService.addProductToBasket(id);
         return ResponseEntity.ok().build();
     }

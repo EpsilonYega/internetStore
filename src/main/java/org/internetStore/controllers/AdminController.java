@@ -39,7 +39,7 @@ public class AdminController {
         return ResponseEntity.badRequest().build();
     }
     @PatchMapping("/products/update/{id}")
-    public ResponseEntity updateProduct(@PathVariable("id") int id, @RequestBody Product product) {
+    public ResponseEntity updateProduct(@PathVariable("id") long id, @RequestBody Product product) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
             productService.updateProduct(id, product);
             return ResponseEntity.ok().build();
@@ -47,7 +47,7 @@ public class AdminController {
         return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/products/drop/{id}")
-    public ResponseEntity dropProduct(@PathVariable("id") int id) {
+    public ResponseEntity dropProduct(@PathVariable("id") long id) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
             productService.dropProduct(id);
             return ResponseEntity.ok().build();
@@ -61,7 +61,7 @@ public class AdminController {
         return ResponseEntity.badRequest().build();
     }
     @GetMapping("/warehouses/{id}")
-    public ResponseEntity<Warehouse> getWarehouse(@PathVariable("id") int id) {
+    public ResponseEntity<Warehouse> getWarehouse(@PathVariable("id") long id) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin"))
             return ResponseEntity.ok(warehouseService.getWarehouseByID(id));
         return ResponseEntity.badRequest().build();
@@ -75,7 +75,7 @@ public class AdminController {
         return ResponseEntity.badRequest().build();
     }
     @PatchMapping("/warehouses/update/{id}")
-    public ResponseEntity updateWarehouse(@PathVariable("id") int id, @RequestBody Warehouse warehouse) {
+    public ResponseEntity updateWarehouse(@PathVariable("id") long id, @RequestBody Warehouse warehouse) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
             warehouseService.updateWarehouse(id, warehouse);
             return ResponseEntity.ok().build();
@@ -83,7 +83,7 @@ public class AdminController {
         return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/warehouses/drop/{id}")
-    public ResponseEntity dropWarehouse(@PathVariable("id") int id) {
+    public ResponseEntity dropWarehouse(@PathVariable("id") long id) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
             warehouseService.dropWarehouse(id);
             return ResponseEntity.ok().build();

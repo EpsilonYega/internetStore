@@ -15,16 +15,16 @@ public class WarehouseService {
     public List<Warehouse> getWarehouseList(){
         return dataAccessLayer.getWarehousesFromDatabase();
     }
-    public Warehouse getWarehouseByID(int id) {
+    public Warehouse getWarehouseByID(long id) {
         return dataAccessLayer.getWarehouseFromDatabaseByID(id);
     }
     public void newWarehouse(Warehouse warehouse){
         dataAccessLayer.newWarehouseToDatabase(warehouse);
     }
-    public void updateWarehouse(int id, Warehouse warehouse) {
+    public void updateWarehouse(long id, Warehouse warehouse) {
         dataAccessLayer.updateWarehouseFromDatabaseByID(id, warehouse);
     }
-    public void dropWarehouse(int id) {
+    public void dropWarehouse(long id) {
         dataAccessLayer.dropWarehouseFromDatabaseByID(id);
     }
 }

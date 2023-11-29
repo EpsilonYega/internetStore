@@ -17,16 +17,16 @@ public class ProductService {
     public List<Product> getProductListByQuery(String searchQuery){
         return dataAccessLayer.searchProducts(searchQuery);
     }
-    public Product getProductByID(int id) {
+    public Product getProductByID(long id) {
         return dataAccessLayer.getProductFromDatabaseByID(id);
     }
     public void newProduct(Product product){
         dataAccessLayer.newProductToDatabase(product);
     }
-    public void updateProduct(int id, Product product) {
+    public void updateProduct(long id, Product product) {
         dataAccessLayer.updateProductFromDatabaseByID(id, product);
     }
-    public void dropProduct(int id) {
+    public void dropProduct(long id) {
         dataAccessLayer.dropProductFromDatabaseByID(id);
     }
 }

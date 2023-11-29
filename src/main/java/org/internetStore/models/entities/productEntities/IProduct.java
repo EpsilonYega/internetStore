@@ -5,7 +5,7 @@ import org.internetStore.models.entities.warehouseEntities.Warehouse;
 import java.util.List;
 
 public interface IProduct {
-    public int getProductid();
+    public long getProductid();
     public String getProductname();
 //    public List<Warehouse> getProductPlacementList();
     public String getCategory();

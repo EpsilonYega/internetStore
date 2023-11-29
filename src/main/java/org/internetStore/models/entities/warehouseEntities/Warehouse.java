@@ -16,7 +16,7 @@ import java.util.List;
 public class Warehouse implements IWarehouse{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private int warehouseId;
+    private long warehouseId;
     @Column(name = "warehouseAddress")
     private String warehouseAddress;
     public Warehouse(){}

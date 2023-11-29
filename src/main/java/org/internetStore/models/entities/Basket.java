@@ -13,7 +13,7 @@ import java.util.List;
 public class Basket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long id;
+    private long id;
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "userid")
@@ -25,13 +25,14 @@ public class Basket {
     private String productName = "";
     @Column
     @JsonIgnore
-    private int price = 0;
+    private double price;
 
     public Basket() {}
 
-    public Basket(User user, Product product, String productName) {
+    public Basket(User user, Product product, String productName, double price) {
         this.user = user;
         this.product = product;
         this.productName = productName;
+        this.price = price;
     }
 }
