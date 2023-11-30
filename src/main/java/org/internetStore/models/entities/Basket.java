@@ -24,7 +24,6 @@ public class Basket {
     private Product product;
     private String productName = "";
     @Column
-    @JsonIgnore
     private double price;
 
     public Basket() {}
