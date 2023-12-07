@@ -26,6 +26,7 @@ public class AdminController {
     public String userAccess(Principal principal){
         if (principal == null)
             return null;
+        // TODO: 02.12.2023 Исправить  
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin"))
             return principal.getName();
         return "Вам сюда нельзя!";
