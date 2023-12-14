@@ -70,6 +70,7 @@ public class SecurityController {
         }
         String jwt = jwtCore.generateToken(user);
         Main.currentUser = userService.loadUserEntityByUsername(signinRequest.getUserName());
+        log.info("Вход прошёл успешно");
         return ResponseEntity.ok(jwt);
     }
 }

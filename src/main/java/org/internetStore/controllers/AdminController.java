@@ -42,7 +42,7 @@ public class AdminController {
         }
         return ResponseEntity.badRequest().build();
     }
-    @PatchMapping("/products/update/{id}")
+    @PostMapping("/products/update/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity updateProduct(@PathVariable("id") long id, @RequestBody Product product) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
@@ -51,7 +51,7 @@ public class AdminController {
         }
         return ResponseEntity.badRequest().build();
     }
-    @DeleteMapping("/products/drop/{id}")
+    @PostMapping("/products/drop/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity dropProduct(@PathVariable("id") long id) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
@@ -83,7 +83,7 @@ public class AdminController {
         }
         return ResponseEntity.badRequest().build();
     }
-    @PatchMapping("/warehouses/update/{id}")
+    @PostMapping("/warehouses/update/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity updateWarehouse(@PathVariable("id") long id, @RequestBody Warehouse warehouse) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
@@ -92,11 +92,12 @@ public class AdminController {
         }
         return ResponseEntity.badRequest().build();
     }
-    @DeleteMapping("/warehouses/drop/{id}")
+    @PostMapping("/warehouses/drop/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity dropWarehouse(@PathVariable("id") long id) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
             warehouseService.dropWarehouse(id);
+            log.info("Вы успешно удалили склад");
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();
