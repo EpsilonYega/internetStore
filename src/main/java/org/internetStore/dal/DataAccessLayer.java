@@ -83,7 +83,7 @@ public class DataAccessLayer {
         session.getTransaction().begin();
         long userId = Main.currentUser.getUserid();
         Basket basket = session.get(Basket.class, basketId);
-        if (basket.getId() == userId) {
+        if (basket.getUser().getUserid() == userId) {
             session.delete(basket);
         } else {
             System.out.println(" ");

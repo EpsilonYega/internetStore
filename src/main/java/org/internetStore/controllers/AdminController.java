@@ -17,12 +17,14 @@ import java.util.Objects;
 @RestController
 @Slf4j
 @RequestMapping("/admin")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AdminController {
     @Autowired
     private ProductService productService;
     @Autowired
     private WarehouseService warehouseService;
     @GetMapping("/adminPage")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String userAccess(Principal principal){
         if (principal == null)
             return null;
@@ -32,6 +34,7 @@ public class AdminController {
         return "Вам сюда нельзя!";
     }
     @PostMapping("/products/new")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity newProduct(@RequestBody Product product) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
             productService.newProduct(product);
@@ -40,6 +43,7 @@ public class AdminController {
         return ResponseEntity.badRequest().build();
     }
     @PatchMapping("/products/update/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity updateProduct(@PathVariable("id") long id, @RequestBody Product product) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
             productService.updateProduct(id, product);
@@ -48,6 +52,7 @@ public class AdminController {
         return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/products/drop/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity dropProduct(@PathVariable("id") long id) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
             productService.dropProduct(id);
@@ -56,18 +61,21 @@ public class AdminController {
         return ResponseEntity.badRequest().build();
     }
     @GetMapping("/warehouses")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<Warehouse>> getWarehouseList() {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin"))
             return ResponseEntity.ok(warehouseService.getWarehouseList());
         return ResponseEntity.badRequest().build();
     }
     @GetMapping("/warehouses/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Warehouse> getWarehouse(@PathVariable("id") long id) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin"))
             return ResponseEntity.ok(warehouseService.getWarehouseByID(id));
         return ResponseEntity.badRequest().build();
     }
     @PostMapping("/warehouses/new")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity newWarehouse(@RequestBody Warehouse warehouse) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
             warehouseService.newWarehouse(warehouse);
@@ -76,6 +84,7 @@ public class AdminController {
         return ResponseEntity.badRequest().build();
     }
     @PatchMapping("/warehouses/update/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity updateWarehouse(@PathVariable("id") long id, @RequestBody Warehouse warehouse) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
             warehouseService.updateWarehouse(id, warehouse);
@@ -84,6 +93,7 @@ public class AdminController {
         return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/warehouses/drop/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity dropWarehouse(@PathVariable("id") long id) {
         if (Objects.equals(Main.currentUser.getUsername(), "admin") && Objects.equals(Main.currentUser.getEmail(), "admin@sorokastore.ru") && Objects.equals(Main.currentUser.getPassword(), "admin")) {
             warehouseService.dropWarehouse(id);

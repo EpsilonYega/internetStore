@@ -24,6 +24,8 @@ public class Product implements IProduct {
     private long productid;
     @Column(name = "productname")
     private String productname;
+    @Column(name="img")
+    private String img;
     @Column(name = "category")
     private String category;
     @ElementCollection
@@ -43,8 +45,9 @@ public class Product implements IProduct {
 
     public Product(){}
 
-    public Product(String productName, String category, List<String> characteristicsList, Warehouse warehouse, double price) {
+    public Product(String productName, String img, String category, List<String> characteristicsList, Warehouse warehouse, double price) {
         this.productname = productName;
+        this.img = img;
         this.category = category;
         this.characteristicsList = characteristicsList;
         this.warehouse = warehouse;

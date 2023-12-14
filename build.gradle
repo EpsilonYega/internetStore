@@ -2,6 +2,12 @@ plugins {
     id 'java'
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'org/internetStore/Main'
+    }
+}
+
 compileJava.options.encoding = 'UTF-8'
 group = 'org.internetStore'
 version = '1.0-SNAPSHOT'
@@ -29,7 +35,6 @@ dependencies {
     implementation 'org.hibernate.orm:hibernate-core:6.3.1.Final'
     implementation 'com.google.guava:guava:32.1.2-jre'
     testImplementation 'junit:junit:4.13.2'
-
 }
 
 test {

@@ -17,16 +17,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
 @RestController
 @Slf4j
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:3000")
 public class SecurityController {
     @Autowired
     private UserService userService;
@@ -38,6 +36,7 @@ public class SecurityController {
     private JwtCore jwtCore;
 
     @PostMapping("/signup")
+    @CrossOrigin(origins = "http://localhost:3000")
     ResponseEntity<?> signup(@RequestBody SignupRequest signupRequest) {
         String serviceResult = userService.newUser(signupRequest);
         if (Objects.equals(serviceResult, "Выберите другое имя")) {
@@ -46,9 +45,10 @@ public class SecurityController {
         if (Objects.equals(serviceResult, "Выберите другую почту")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(serviceResult);
         }
-        return ResponseEntity.ok("Победа)");
+        return ResponseEntity.ok("Вы успешно зарегистрированы. Теперь можете войти в свой аккаунт.");
     }
     @PostMapping("/signin")
+    @CrossOrigin(origins = "http://localhost:3000")
     ResponseEntity<?> signin(@RequestBody SigninRequest signinRequest) {
 //        Authentication authentication = null;
 //        try{
@@ -64,7 +64,7 @@ public class SecurityController {
 
         UserDetails user = userService.loadUserByUsername(signinRequest.getUserName());
 
-        if (!Objects.equals(user.getPassword(), signinRequest.getPassword())) {
+        if (Objects.equals(user, null) || !Objects.equals(user.getPassword(), signinRequest.getPassword())) {
             log.info("Ошибка авторизации пользователя " + signinRequest.getUserName());
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

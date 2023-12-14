@@ -5,6 +5,8 @@ import org.internetStore.dto.SignupRequest;
 import org.internetStore.models.entities.User;
 import org.internetStore.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +28,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = dataAccessLayer.getUserFromDatabaseByUsername(username);
+        if (user == null) return null;
         return UserDetailsImpl.build(user);
     }
     public User loadUserEntityByUsername(String username) throws UsernameNotFoundException {
