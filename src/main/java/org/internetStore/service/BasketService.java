@@ -14,8 +14,8 @@ public class BasketService {
     public List<Basket> getBasket() {
         return dataAccessLayer.getBasketFromDatabase();
     }
-    public void addProductToBasket(long productId) {
-        dataAccessLayer.newBasketToDatabase(dataAccessLayer.getProductFromDatabaseByID(productId));
+    public String addProductToBasket(long productId) {
+        return dataAccessLayer.newBasketToDatabase(dataAccessLayer.getProductFromDatabaseByID(productId));
     }
     public void dropProductFromBasket(long productId) {
         dataAccessLayer.dropProductFromBasketByID(productId);

@@ -18,6 +18,7 @@ import org.internetStore.models.entities.warehouseEntities.Warehouse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -71,12 +72,26 @@ public class DataAccessLayer {
                 .list();
         return result;
     }
-    public void newBasketToDatabase(Product product) {
+    public String newBasketToDatabase(Product product) {
         session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Basket> query = builder.createQuery(Basket.class);
+        Root<Basket> root = query.from(Basket.class);
+        query.select(root);
+        List<Basket> basketList = session.createQuery(query).getResultList();
+
+        for (Basket basket : basketList) {
+            if (Objects.equals(basket.getProduct().getProductid(), product.getProductid())) {
+                return "К сожалению, данный товар уже зарезервирован";
+            }
+        }
+
         session.persist(product.addProductToBasket());
         session.getTransaction().commit();
         session.close();
+        return "Товар успешно добавлен";
     }
     public void dropProductFromBasketByID(long basketId) {
         session = HibernateUtil.getSessionFactory().openSession();

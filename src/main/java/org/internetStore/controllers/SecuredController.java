@@ -43,7 +43,8 @@ public class SecuredController {
     @PostMapping("/products/{id}/toBasket")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity addProductToBasket(@PathVariable("id") long id) {
-        basketService.addProductToBasket(id);
-        return ResponseEntity.ok().build();
+        String res = basketService.addProductToBasket(id);
+        log.info(res);
+        return ResponseEntity.ok(res);
     }
 }
